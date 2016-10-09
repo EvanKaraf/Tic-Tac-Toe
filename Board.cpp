@@ -10,7 +10,7 @@ using namespace std;
 
 int INITIAL_DEPTH;
 
-Board::Board(int choice) {
+Board::Board(int choice) {      //ENTER OPPONENTS MARK OF CHOICE  1== X , 0 == O
     if (choice == 0) {
         this->me = 1;
         this->opponent = 0;
@@ -19,18 +19,19 @@ Board::Board(int choice) {
         this->opponent = 1;
     }
 
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < 10; i++) {
         b[i] = -1;
     }
 }
 
 void Board::drawBoard() {
-    string str[5] = {{"   |   |   "},
-                     {"-----------"},
-                     {"   |   |   "},
-                     {"-----------"},
-                     {"   |   |   "}};
+    string str[5];
     int countRows = 0;
+    str[0] = "   |   |   ";
+    str[1] = "-----------";
+    str[2] = "   |   |   ";
+    str[3] = "-----------";
+    str[4] = "   |   |   ";
 
     for (int i = 0; i < 5; i += 2) {
         for (int j = 1; j < 11; j += 4) {
@@ -101,12 +102,23 @@ int Board::checkWinner() {
     }
 }
 
-MOVE Board::alphaBeta(int depth, int maxPL) {
+int Board::evaluateMove() {
+    int winner = checkWinner();
+    if (winner == ME)
+        return 10;
+    else if (winner == OPPONENT)
+        return -10;
+    else {
+        return 0;
+    }
+}
+
+MOVE Board::negamax(int depth, int player) {
     MOVE tempMove;
     MOVE bestMove;
 
     if (checkWinner() != -1 || depth == 0) {
-        tempMove.value = -(maxPL * evaluateMove());
+        tempMove.value = -(player * evaluateMove());
         return tempMove;
     }
 
@@ -115,9 +127,9 @@ MOVE Board::alphaBeta(int depth, int maxPL) {
 
     for (int i = 1; i < 10; i++) {
         if (b[i] == -1) {
-            playMove(i, maxPL);
+            playMove(i, player);
 
-            tempMove.value = -(alphaBeta(depth - 1, -maxPL).value);
+            tempMove.value = -(negamax(depth - 1, -player).value);
             if (tempMove.value > bestMove.value) {
                 bestMove.value = tempMove.value;
                 bestMove.move = i;
@@ -130,22 +142,10 @@ MOVE Board::alphaBeta(int depth, int maxPL) {
 
 }
 
-int Board::evaluateMove() {
-    int winner = checkWinner();
-    if (winner == ME)
-        return 10;
-    else if (winner == OPPONENT)
-        return -10;
-    else {
-        return 0;
-    }
-}
-
-
 int Board::findMove() {
     MOVE best;
-    INITIAL_DEPTH = 6;
-    best = alphaBeta(INITIAL_DEPTH, -1); //MAXIMIZING
+    INITIAL_DEPTH = 7;
+    best = negamax(INITIAL_DEPTH, -1); //MAXIMIZING
     return best.move;
 }
 

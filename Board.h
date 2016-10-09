@@ -15,14 +15,13 @@ typedef struct move {
 
 class Board {
 private:
-    int rows = 10;
     int me;
     int opponent;
     int b[10];
 
     int evaluateMove();
 
-    MOVE alphaBeta(int depth, int maxPL);
+    MOVE negamax(int depth, int player);  // -1 Stands for PC and 1 stands for player.
 
 public:
 

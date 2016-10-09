@@ -15,7 +15,7 @@ int main() {
     cout << endl;
 
     while (!gameOver) {
-        Board b(mark);         //ENTER OPPONENTS MARK OF CHOICE  1== X , 0 == O
+        Board b(mark);
         while (b.checkWinner() != -1 || b.checkWinner() != -2) {
             b.drawBoard();
             cout << endl << "Choose a move![1-9] :";
