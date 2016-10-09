@@ -29,7 +29,7 @@ public:
 
     void drawBoard();
 
-    void playMove(int move, int player);
+    bool playMove(int move, int player);
 
     int checkWinner();
 

@@ -1,5 +1,5 @@
+
 #include <iostream>
-#include <algorithm>
 #include "Board.h"
 
 using namespace std;
@@ -16,18 +16,18 @@ int main() {
 
     while (!gameOver) {
         Board b(mark);
-        while (b.checkWinner() != -1 || b.checkWinner() != -2) {
+        while (b.checkWinner() == -1 || b.checkWinner() == -2) {
             b.drawBoard();
-            cout << endl << "Choose a move![1-9] :";
-            cin >> mark;
-            cout << endl;
-            b.playMove(mark, OPPONENT);
+            do {
+                cout << endl << "Choose a move![1-9] :";
+                cin >> mark;
+                cout << endl;
+            }while(!b.playMove(mark, OPPONENT));
             if (b.checkWinner() == -2) {
                 b.announceResults();
                 break;
             }
             b.playMove(b.findMove(), ME);
-
         }
         b.announceResults();
         gameOver = b.promptRematch();

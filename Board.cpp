@@ -57,18 +57,18 @@ void Board::drawBoard() {
 
 }
 
-void Board::playMove(int move, int player) {
+bool Board::playMove(int move, int player) {
     if (player == -1)
         player = 0;
     if (move < 1 || move > 9 || b[move] != -1) {
         cout << "Invalid move try again" << endl;
-        return;
+        return false;
     }
     if (player == ME)
         b[move] = this->me;
     else
         b[move] = this->opponent;
-
+    return true;
 
 }
 
