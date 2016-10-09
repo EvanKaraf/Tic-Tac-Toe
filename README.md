@@ -6,4 +6,4 @@ An unbeatable Tic-Tac-Toe Game!
 git clone https://github.com/EvanKaraf/Tic-Tac-Toe.git
 make
 make clean
-
+```
