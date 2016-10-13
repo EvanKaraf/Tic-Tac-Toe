@@ -9,4 +9,6 @@ make clean
 ```
 
 ##Play online!
-[Unbeatable Tic-Tac-Toe](http://cgi.di.uoa.gr/~sdi1500063/)
+```
+[Unbeatable Tic-Tac-Toe!](http://cgi.di.uoa.gr/~sdi1500063/)
+```
